@@ -12,7 +12,7 @@ This repository provides a MERN stack startup template.
 ### Script
 - Typescript (.ts, .tsx)
 
-## Style
+### Style
 - SASS (.scss)
 
 ## Installation
