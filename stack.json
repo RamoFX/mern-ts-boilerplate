@@ -1,0 +1,15 @@
+{
+
+  "frontend": {
+    "framework": "react",
+    "script": "ts",
+    "style": "scss"
+  },
+
+  "backend": {
+    "server": "express",
+    "server-lang": "ts",
+    "database": "mongo"
+  }
+
+}
