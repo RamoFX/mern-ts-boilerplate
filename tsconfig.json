@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "a/*": ["assets/*"],
+
+      "c/*": ["source/app/components/*"],
+      "cv/*": ["source/app/components/views/*"],
+      "ce/*": ["source/app/components/elements/*"],
+      "cm/*": ["source/app/components/main/*"],
+      "cp/*": ["source/app/components/parts/*"],
+
+      "s/*": ["source/app/scripts/*"],
+      "sh/*": ["source/app/scripts/helpers/*"]
+    }
+  },
+  "include": [
+    "source"
+  ],
+  "types": [
+    "source/types/**/*.d.ts"
+  ]
+}
