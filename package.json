@@ -1,0 +1,55 @@
+{
+  "name": "mern-ts-startup",
+  "version": "1.0.0",
+  "description": "This repository provides a MERN stack startup template with Typescript.",
+  "main": "webpack.config.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack serve --mode development",
+    "build": "cross-env NODE_ENV=production webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RamoFX/mern-ts-startup.git"
+  },
+  "keywords": [],
+  "author": "Roman Dvorovoy <roman.dvorovoy123@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RamoFX/mern-ts-startup/issues"
+  },
+  "homepage": "https://github.com/RamoFX/mern-ts-startup#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.10",
+    "@babel/preset-react": "^7.12.10",
+    "@types/node": "^14.14.12",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.1.6",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.0.1",
+    "gulp-load-plugins": "^2.0.6",
+    "html-webpack-plugin": "^4.5.0",
+    "mini-css-extract-plugin": "^1.3.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "path": "^0.12.7",
+    "reset-css": "^5.0.1",
+    "sass": "^1.30.0",
+    "sass-loader": "^10.1.0",
+    "terser-webpack-plugin": "^5.0.3",
+    "ts-loader": "^8.0.12",
+    "typescript": "^4.1.2",
+    "webpack": "^5.10.0",
+    "webpack-bundle-analyzer": "^4.2.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.7",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0"
+  }
+}
