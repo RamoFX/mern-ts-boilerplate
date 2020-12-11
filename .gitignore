@@ -1,0 +1,4 @@
+.git
+node_modules
+production
+package-lock.json
