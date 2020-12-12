@@ -2,11 +2,11 @@
   "name": "mern-ts-startup",
   "version": "1.0.0",
   "description": "This repository provides a MERN stack startup template with Typescript.",
-  "main": "webpack.config.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack serve --mode development",
-    "build": "cross-env NODE_ENV=production webpack --mode production",
-    "start": "express start && npm run dev"
+    "front:dev": "./scripts/front:dev",
+    "front:build": "./scripts/front:build",
+    "back:start": "./scripts/back:start",
+    "start": "./scripts/start"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.1",
+    "file-system": "^2.2.2",
     "gulp-load-plugins": "^2.0.6",
     "html-webpack-plugin": "^4.5.0",
     "mini-css-extract-plugin": "^1.3.3",
