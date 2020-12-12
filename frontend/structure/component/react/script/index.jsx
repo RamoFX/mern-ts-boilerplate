@@ -5,10 +5,10 @@ import React from 'react'
 /**/
 
 // Component dependencies
-// import ComponentName from 'ce/ComponentName'
+// import ComponentName from 'components/ComponentName'
 
 // Helpers
-/*__HELPER_PATTERN__*/import 'sh/__HELPER_NAME__'
+/*__HELPER_PATTERN__*/import 'helpers/__HELPER_NAME__'
 
 // Local dependencies
 import './style.__STYLE_EXTNAME__'
