@@ -2,7 +2,7 @@
 
   "frontend": {
     "languages": {
-      "script": ["ts", "js"],
+      "script": "ts",
       "style": "scss"
     },
     "stack": {
@@ -11,7 +11,9 @@
   },
 
   "backend": {
-    "languages": "js",
+    "languages": {
+      "script": "js"
+    },
     "stack": {
       "framework": "express",
       "db": "mongodb"
