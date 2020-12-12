@@ -1,0 +1,196 @@
+#!/bin/env nodejs
+
+// Imports
+const fs = require('file-system')
+
+
+
+// Helpers
+// Paths
+const projectPath = (...items) => {
+  items = !items ? items = [] : items
+
+  const dirnameCutLast = __dirname.substr(0, __dirname.lastIndexOf('/'))
+
+  return [dirnameCutLast, items.join('/')].join('/')
+}
+
+const presetsComponentsPath = (...items) => projectPath('structure', 'component', ...items)
+const appPath = (...items) => projectPath('source', 'app', ...items)
+const componentsPath = (...items) => appPath('components', ...items)
+
+// File management
+const read = (type, path) => {
+  if (type == 'dir') {
+    return fs.readdirSync(path)
+  } else if (type == 'file') {
+    return fs.readFileSync(path, 'utf8')
+  }
+}
+
+const exist = (type, path) => {
+  try {
+    // return typeof read(type, path).length == Number
+    // or
+    // read(type, path)
+    // return true
+    return typeof read(type, path).length == Number
+  } catch (e) {
+    return false
+  }
+}
+
+const write = (type, path, content = null) => {
+  if (!exist(type, path)) {
+
+    if (type == 'dir') {
+      fs.mkdirSync(path)
+    } else if (type == 'file') {
+      fs.writeFileSync(path, content)
+    }
+
+  }
+
+}
+
+// Debug & status
+const exit = (exitcode, description, showDetails = true) => {
+  const exitObject = {
+    exitcode,
+    description
+  }
+
+  console.log(showDetails ? exitObject : exitObject.description)
+}
+
+
+
+// Main
+require('./helpers').init((type, name) => {
+
+  // Preferences & helpers
+  const typeVariations = read('dir', componentsPath())
+  const typeInvalid = !typeVariations.includes(type)
+
+  const nameInvalid = !/^[a-z_-]{3,32}$/i.test(name)
+
+  const componentAlreadyExists = exist('dir', componentsPath(type, name))
+
+  const stack = require('../stack.json')
+
+
+
+  // Main
+  if (typeInvalid) {
+
+    return exit(1, 'invalid type (arg 0)')
+
+  } else if (nameInvalid) {
+
+    return exit(1, 'invalid name (arg 1)')
+
+  } else if (componentAlreadyExists) {
+
+    return exit(1, 'component already exists')
+
+  } else {
+
+    // Preferences
+    const files = [
+
+      {
+        type: 'script',
+        name: `index.${ stack.script }${ stack.framework == 'react' ? 'x' : '' }`,
+        replacements: [
+
+          {
+            type: 'pattern',
+            pattern: /\/\*__HELPER_PATTERN__\*\//,
+            from: /__HELPER_NAME__/,
+            to: read('dir',  appPath('scripts', 'helpers') )
+          },
+
+          {
+            type: 'simple',
+            from: /__STYLE_EXTNAME__/g,
+            to: stack['style']
+          },
+
+          {
+            type: 'simple',
+            from: /__NAME__/g,
+            to: name
+          },
+
+          {
+            type: 'simple',
+            from: /__NAME_LOWER__/g,
+            to: name.toLowerCase()
+          }
+
+        ]
+      },
+
+      {
+        type: 'style',
+        name: `style.${ stack.style }`,
+        replacements: [
+
+          {
+            type: 'pattern',
+            pattern: /\/\*__HELPER_PATTERN__\*\//,
+            from: /__HELPER_NAME__/,
+            to: read('dir',  appPath('styles', 'helpers') )
+          }
+
+        ]
+      }
+
+    ]
+
+    // Main
+    files.forEach( file => {
+      // Read preset file
+      let fileContent = read('file', presetsComponentsPath(stack.framework, file.type, file.name))
+
+      // Make replacements
+      file.replacements.forEach( fileReplacement => {
+
+        if (fileReplacement.type == 'pattern') {
+          fileSplitted = fileContent.split('\n')
+
+          fileSplitted.forEach( (line, idx) => {
+            if (fileReplacement.pattern.test(line)) {
+
+              line = line.replace(fileReplacement.pattern, '')
+              let newLine = ''
+
+              fileReplacement.to.forEach( to => {
+                newLine += line.replace(fileReplacement.from, to)
+                newLine += '\n'
+              } )
+
+              fileSplitted[idx] = newLine
+              fileContent = fileSplitted.join('\n')
+
+            }
+          } )
+
+        } else {
+
+          fileContent = fileContent.replace(fileReplacement.from, fileReplacement.to)
+
+        }
+      } )
+
+      // Save final component
+      write('dir', componentsPath(type, name))
+      write('file', componentsPath(type, name, file.name), fileContent)
+    } )
+
+    // Output
+    return exit(0, `successfuly created component\n- name: '${ name }'\n- path: '${ componentsPath(type, name) }'`, false)
+
+  }
+
+})
