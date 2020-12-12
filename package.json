@@ -12,9 +12,19 @@
     "type": "git",
     "url": "git+https://github.com/RamoFX/mern-ts-startup.git"
   },
-  "keywords": [],
+  "keywords": [
+    "typescript",
+    "mern",
+    "frontend",
+    "startup-template",
+    "backend",
+    "mongodb",
+    "express",
+    "react",
+    "nodejs"
+  ],
   "author": "Roman Dvorovoy <roman.dvorovoy123@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/RamoFX/mern-ts-startup/issues"
   },
