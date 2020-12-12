@@ -31,13 +31,14 @@ Install dependencies: `npm install`
 
 
 ## Scripts
+Develop entire application: `npm start`
 
-Frontend, backend: `npm run dev`
+Develop frontend: `npm run dev`
 
-Frontend, backend: `npm run build`
+Build frontend: `npm run build`
 
 
 ### Workflow
 Create new component: `npm run new-comp type name`
 
-> NOTE: `type` argument should be one of `source/app/components` directory names
+> NOTE: `type` argument should be one of `source/app/ui/*` directory names
