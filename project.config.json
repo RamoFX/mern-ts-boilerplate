@@ -1,0 +1,21 @@
+{
+
+  "frontend": {
+    "languages": {
+      "script": ["ts", "js"],
+      "style": "scss"
+    },
+    "stack": {
+      "framework": "react"
+    }
+  },
+
+  "backend": {
+    "languages": "js",
+    "stack": {
+      "framework": "express",
+      "db": "mongodb"
+    }
+  }
+
+}
