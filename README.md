@@ -1,6 +1,8 @@
 # MERN, Typescript - STARTUP TEMPLATE
 This repository provides a MERN stack startup template with Typescript.
 
+Using unusual logical project structure.
+
 
 
 ## Used technologies
@@ -31,11 +33,13 @@ Install dependencies: `npm install`
 
 
 ## Scripts
-Develop entire application: `npm start`
+Develop frontend: `npm run front:dev`
 
-Develop frontend: `npm run dev`
+Build frontend: `npm run front:build`
 
-Build frontend: `npm run build`
+Start backend: `npm run back:start`
+
+Develop entire application: `npm run start`
 
 
 ### Workflow
