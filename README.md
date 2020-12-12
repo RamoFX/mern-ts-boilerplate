@@ -43,6 +43,6 @@ Develop entire application: `npm run start`
 
 
 ### Workflow
-Create new component: `npm run new-comp type name`
+Create new component: `./frontend/workflow/new-component`
 
-> NOTE: `type` argument should be one of `source/app/ui/*` directory names
+> NOTE: `type` argument should be one of `./frontend/source/app/ui/*` directory names
