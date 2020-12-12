@@ -1,4 +1,4 @@
-#!/bin/env nodejs
+#!/bin/env node
 
 // Imports
 const fs = require('file-system')
@@ -17,7 +17,7 @@ const projectPath = (...items) => {
 
 const presetsComponentsPath = (...items) => projectPath('structure', 'component', ...items)
 const appPath = (...items) => projectPath('source', 'app', ...items)
-const componentsPath = (...items) => appPath('components', ...items)
+const componentsPath = (...items) => appPath('ui', ...items)
 
 // File management
 const read = (type, path) => {
@@ -76,7 +76,7 @@ require('./helpers').init((type, name) => {
 
   const componentAlreadyExists = exist('dir', componentsPath(type, name))
 
-  const stack = require('../stack.json')
+  const projectConfig = require('../../project.config.json')
 
 
 
@@ -100,7 +100,7 @@ require('./helpers').init((type, name) => {
 
       {
         type: 'script',
-        name: `index.${ stack.script }${ stack.framework == 'react' ? 'x' : '' }`,
+        name: `index.${ projectConfig.frontend.languages.script }${ projectConfig.frontend.stack.framework == 'react' ? 'x' : '' }`,
         replacements: [
 
           {
@@ -113,7 +113,7 @@ require('./helpers').init((type, name) => {
           {
             type: 'simple',
             from: /__STYLE_EXTNAME__/g,
-            to: stack['style']
+            to: projectConfig.frontend.languages.style
           },
 
           {
@@ -133,7 +133,7 @@ require('./helpers').init((type, name) => {
 
       {
         type: 'style',
-        name: `style.${ stack.style }`,
+        name: `style.${ projectConfig.frontend.languages.style }`,
         replacements: [
 
           {
@@ -151,7 +151,7 @@ require('./helpers').init((type, name) => {
     // Main
     files.forEach( file => {
       // Read preset file
-      let fileContent = read('file', presetsComponentsPath(stack.framework, file.type, file.name))
+      let fileContent = read('file', presetsComponentsPath(projectConfig.frontend.stack.framework, file.type, file.name))
 
       // Make replacements
       file.replacements.forEach( fileReplacement => {

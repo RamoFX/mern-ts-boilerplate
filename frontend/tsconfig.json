@@ -19,16 +19,17 @@
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
-      "a/*": ["assets/*"],
+      "assets/*": ["assets/*"],
 
-      "c/*": ["source/app/components/*"],
-      "cv/*": ["source/app/components/views/*"],
-      "ce/*": ["source/app/components/elements/*"],
-      "cm/*": ["source/app/components/main/*"],
-      "cp/*": ["source/app/components/parts/*"],
+      "ui/*": ["source/app/ui/*"],
 
-      "s/*": ["source/app/scripts/*"],
-      "sh/*": ["source/app/scripts/helpers/*"]
+      "components/*": ["source/app/ui/components/*"],
+      "pages/*": ["source/app/ui/pages/*"],
+      "layout/*": ["source/app/ui/layout/*"],
+      "main/*": ["source/app/ui/main/*"],
+
+      "scripts/*": ["source/app/scripts/*"],
+      "helpers/*": ["source/app/scripts/helpers/*"]
     }
   },
   "include": [
