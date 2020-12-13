@@ -1,30 +1,20 @@
-// Script frameworks & libraries
 import React, { FC } from 'react'
 
-// Style frameworks & libraries
-/**/
-
-// Component dependencies
-import MainLayout from 'layout/MainLayout'
-
-// Helpers
-import 'helpers/basic.ts'
-import 'helpers/dom.ts'
-
-
-// Local dependencies
 import './style.scss'
 
+// import ComponentName from 'components/ComponentName'
+
+import 'helpers/basic'
+import 'helpers/dom'
 
 
-// Main
+
 const Root: FC = () => (
-  <>
-    <MainLayout />
-  </>
+  <div className="root">
+    Root
+  </div>
 )
 
 
 
-// Export
 export default Root

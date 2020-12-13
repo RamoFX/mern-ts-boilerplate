@@ -1,23 +1,14 @@
-// Script frameworks & libraries
 import React, { FC } from 'react'
 
-// Style frameworks & libraries
-/**/
-
-// Component dependencies
-// import ComponentName from 'ce/ComponentName'
-
-// Helpers
-import 'helpers/basic.ts'
-import 'helpers/dom.ts'
-
-
-// Local dependencies
 import './style.scss'
 
+// import ComponentName from 'components/ComponentName'
+
+import 'helpers/basic'
+import 'helpers/dom'
 
 
-// Main
+
 const MainLayout: FC = () => (
   <div className="mainlayout">
     MainLayout
@@ -26,5 +17,4 @@ const MainLayout: FC = () => (
 
 
 
-// Export
 export default MainLayout
