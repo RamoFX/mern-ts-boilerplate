@@ -107,7 +107,7 @@ require('./helpers').init((type, name) => {
             type: 'pattern',
             pattern: /\/\*__HELPER_PATTERN__\*\//,
             from: /__HELPER_NAME__/,
-            to: read('dir',  appPath('scripts', 'helpers') )
+            to: read('dir',  appPath('scripts', 'helpers') ).map( file => file.substr(0, file.lastIndexOf('.')) )
           },
 
           {
@@ -165,9 +165,9 @@ require('./helpers').init((type, name) => {
               line = line.replace(fileReplacement.pattern, '')
               let newLine = ''
 
-              fileReplacement.to.forEach( to => {
+              fileReplacement.to.forEach( (to, idx) => {
                 newLine += line.replace(fileReplacement.from, to)
-                newLine += '\n'
+                if (idx != fileReplacement.to.length - 1) newLine += '\n'
               } )
 
               fileSplitted[idx] = newLine
