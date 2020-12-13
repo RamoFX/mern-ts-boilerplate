@@ -17,15 +17,18 @@ const path = (...items) => [__dirname, ...(items || [])].flat().join('/')
 
 const filename = ext => `[name]${ dev && '-[contenthash]' }.bundle.min.${ ext }`
 
-// Return object if condition else return empty object of the same type
+// ReturnIF: Return object or array if condition else return empty object or array of the same type
 const rif = (cond, obj) => {
   const obj_empty = Array.isArray(obj) ? [] : {}
   return cond ? obj : obj_empty
 }
 
+const module_obj = (test, use, exclude = /node_modules/) => ({
+  test,
+  use,
+  exclude
+})
 
-
-// Preferences
 const frontendConfig = projectConfig.frontend
 
 const script = frontendConfig.languages.script
@@ -36,42 +39,43 @@ const script_ext = `${ script }${ framework == 'react' && 'x' }`
 
 const entryFile_name = `index.${ script_ext }`
 
+const scriptModule = () => {
+  const test = new RegExp(`/\.${ script }x?$/`)
 
+  return module_obj(test, [
+    {
+      loader: 'babel-loader',
+      options: {
+        presets: [
+          '@babel/preset-env',
+          '@babel/preset-react'
+        ],
+        plugins: [
+          '@babel/plugin-proposal-class-properties'
+        ]
+      }
+    },
+    script == 'ts' ? 'ts-loader' : []
+  ].flat())
+}
 
-// Sugar
-const module_obj = (test, use, exclude = /node_modules/) => ({
-  test,
-  use,
-  exclude
-})
+const styleModule = () => {
+  const css_regexp = /\.css$/
+  const sass_regexp = /\.s[ac]ss$/
 
-const scriptModule = (regexp, ...extraLoaders) => module_obj(regexp, [
-  {
-    loader: 'babel-loader',
-    options: {
-      presets: [
-        '@babel/preset-env',
-        '@babel/preset-react'
-      ],
-      plugins: [
-        '@babel/plugin-proposal-class-properties'
-      ]
-    }
-  },
-  ...(extraLoaders || [])
-])
+  const is_sass = sass_regexp.test(style)
 
-const styleModule = (regexp, ...extraLoaders) => module_obj(regexp, [
-  {
-    loader: pkg.miniCssExtractPlugin.loader,
-    options: {
-      hmr: dev,
-      reloadAll: true
-    }
-  },
-  'css-loader',
-  ...(extraLoaders || [])
-])
+  const test = is_sass ? sass_regexp : css_regexp
+
+  return module_obj(test, [
+    {
+      loader: pkg.miniCssExtractPlugin.loader,
+      options: {}
+    },
+    'css-loader',
+    is_sass ? 'sass-loader' : []
+  ].flat())
+}
 
 
 
@@ -87,21 +91,11 @@ module.exports = {
 
   module: {
     rules: [
-      // Script
-      scriptModule(/\.jsx?$/),
-      rif(
-        script == 'ts',
-        scriptModule(/\.tsx?$/, 'ts-loader')
-      ),
+      // Main modules
+      scriptModule(),
+      styleModule(),
 
-      // Style
-      styleModule(/\.css$/),
-      rif(
-        /\.s[ac]ss$/.test(style),
-        styleModule(/\.s[ac]ss$/, 'sass-loader')
-      ),
-
-      // Other
+      // Other modules
       module_obj(/\.(png|jpe?g|gif)$/i, [
         {
           loader: 'file-loader'
