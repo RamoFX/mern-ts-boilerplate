@@ -4,7 +4,7 @@ const pkg = require('gulp-load-plugins')({overridePattern: true, pattern: ['*']}
 
 
 // Files
-const prefs = require('../project.config.json')
+const projectConfig = require('../project.config.json')
 
 
 
@@ -13,7 +13,7 @@ const mode = process.env.NODE_ENV
 const dev = mode == 'development'
 const prod = mode == 'production'
 
-const path = items => [__dirname, ...(items || [])].flat().join('/')
+const path = (...items) => [__dirname, ...(items || [])].flat().join('/')
 
 const filename = ext => `[name]${ dev && '-[contenthash]' }.bundle.min.${ ext }`
 
@@ -23,51 +23,55 @@ const rif = (cond, obj) => {
   return cond ? obj : obj_empty
 }
 
-const loaders = (type, extraLoader = [], extraPreset = []) => {
-  if (type == 'script') {
-    return [
-      {
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            '@babel/preset-env',
-            ...extraPreset
-          ],
-          plugins: [
-            '@babel/plugin-proposal-class-properties'
-          ]
-        }
-      },
-      ...extraLoader
-    ]
-  } else if (type == 'style') {
-    return [
-      {
-        loader: plugin.miniCssExtractPlugin.loader,
-        options: {
-          hmr: development,
-          reloadAll: true
-        }
-      },
-      'css-loader',
-      ...extraLoader
-    ]
-  } else if (type == 'img') {
-    return [
-      {
-        loader: 'file-loader'
-      },
-      ...extraLoader
-    ]
-  }
-}
-
 
 
 // Preferences
-const script_ext = `${ prefs.frontend.languages.script }${ prefs.frontend.stack.framework == 'react' && 'x' }`
+const frontendConfig = projectConfig.frontend
+
+const script = frontendConfig.languages.script
+const style = frontendConfig.languages.style
+const framework = frontendConfig.stack.framework
+
+const script_ext = `${ script }${ framework == 'react' && 'x' }`
+
 const entryFile_name = `index.${ script_ext }`
-const style_ext = prefs.frontend.languages.style
+
+
+
+// Sugar
+const module_obj = (test, use, exclude = /node_modules/) => ({
+  test,
+  use,
+  exclude
+})
+
+const scriptModule = (regexp, ...extraLoaders) => module_obj(regexp, [
+  {
+    loader: 'babel-loader',
+    options: {
+      presets: [
+        '@babel/preset-env',
+        '@babel/preset-react'
+      ],
+      plugins: [
+        '@babel/plugin-proposal-class-properties'
+      ]
+    }
+  },
+  ...(extraLoaders || [])
+])
+
+const styleModule = (regexp, ...extraLoaders) => module_obj(regexp, [
+  {
+    loader: pkg.miniCssExtractPlugin.loader,
+    options: {
+      hmr: dev,
+      reloadAll: true
+    }
+  },
+  'css-loader',
+  ...(extraLoaders || [])
+])
 
 
 
@@ -75,29 +79,54 @@ const style_ext = prefs.frontend.languages.style
 module.exports = {
   mode,
 
-  context: path(''),
-
   entry: path('source', 'app', entryFile_name),
   output: {
-    path: path('production'),
+    path: path(`${ dev && 'dev-' }production`),
     filename: filename('js')
   },
 
-  module: [
-    {
-      test: '',
-      use: {
-        loaders: [
-          {
-            use: []
-          }
-        ]
-      }
-    }
-  ],
+  module: {
+    rules: [
+      // Script
+      scriptModule(/\.jsx?$/),
+      rif(
+        script == 'ts',
+        scriptModule(/\.tsx?$/, 'ts-loader')
+      ),
+
+      // Style
+      styleModule(/\.css$/),
+      rif(
+        /\.s[ac]ss$/.test(style),
+        styleModule(/\.s[ac]ss$/, 'sass-loader')
+      ),
+
+      // Other
+      module_obj(/\.(png|jpe?g|gif)$/i, [
+        {
+          loader: 'file-loader'
+        }
+      ])
+    ]
+  },
 
   resolve: {
-    extensions: [],
+    extensions: [
+      // Script
+      '.js',
+      ...rif(framework == 'react', ['.jsx']),
+      ...rif(script == 'ts', [
+        '.ts',
+        ...rif(framework == 'react', ['.tsx'])
+      ]),
+
+      // Style
+      '.css',
+      ...rif(style != 'css', [style]),
+
+      // Other
+      '.json'
+    ].flat(),
     alias: {
       assets: path('assets'),
 
@@ -132,6 +161,7 @@ module.exports = {
     port: 8080,
     inline: true,
     publicPath: '/',
-    historyApiFallback: true
+    historyApiFallback: true,
+    writeToDisk: true
   }
 }
