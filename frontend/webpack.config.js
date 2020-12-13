@@ -81,7 +81,7 @@ module.exports = {
 
   entry: path('source', 'app', entryFile_name),
   output: {
-    path: path(`${ dev && 'dev-' }production`),
+    path: path('production'),
     filename: filename('js')
   },
 
@@ -161,7 +161,6 @@ module.exports = {
     port: 8080,
     inline: true,
     publicPath: '/',
-    historyApiFallback: true,
-    writeToDisk: true
+    historyApiFallback: true
   }
 }
