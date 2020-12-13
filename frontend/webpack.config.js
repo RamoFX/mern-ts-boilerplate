@@ -40,7 +40,7 @@ const script_ext = `${ script }${ framework == 'react' && 'x' }`
 const entryFile_name = `index.${ script_ext }`
 
 const scriptModule = () => {
-  const test = new RegExp(`/\.${ script }x?$/`)
+  const test = new RegExp(`/\.${ script }${ framework == 'react' && 'x?' }$/`)
 
   return module_obj(test, [
     {
