@@ -2,18 +2,22 @@ import React, { FC } from 'react'
 
 import './style.scss'
 
-// import ComponentName from 'components/ComponentName'
+import MainLayout from 'layout/MainLayout'
 
 import 'helpers/basic'
 import 'helpers/dom'
 
 
 
-const Root: FC = () => (
-  <div className="root">
-    Root
-  </div>
-)
+const Root: FC = () => {
+  const appMode = 'normal'
+
+  return (
+    <div className="root">
+      { appMode == 'normal' && <MainLayout /> }
+    </div>
+  )
+}
 
 
 
