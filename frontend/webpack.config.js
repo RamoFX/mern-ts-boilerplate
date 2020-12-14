@@ -153,6 +153,7 @@ module.exports = {
   devtool: dev && 'source-map',
   devServer: {
     port: 8080,
+    hot: true,
     inline: true,
     publicPath: '/',
     historyApiFallback: true
