@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const miniCssExtractPlugin = require('mini-css-extract-plugin')
-const htmlWebpackPlugin = reqiure('html-webpack-plugin')
+const htmlWebpackPlugin = require('html-webpack-plugin')
 
 const { path } = require('./helpers.js')
 
