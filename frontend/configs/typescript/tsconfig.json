@@ -37,6 +37,5 @@
   ],
   "types": [
     "source/types/**/*.d.ts"
-  ],
-  "transpileOnly": true
+  ]
 }
