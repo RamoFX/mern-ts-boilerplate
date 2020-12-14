@@ -158,7 +158,7 @@ module.exports = {
     }
   },
 
-  plugins: [
+  plugins: flat([
     new pkg.htmlWebpackPlugin({
       template: path('source', 'index.html')
     }),
@@ -169,8 +169,8 @@ module.exports = {
     ...rif(prod, [
       new pkg.terserWebpackPlugin(),
       localConfig.analyzeBundle ? new pkg.webpackBundleAnalyzer.BundleAnalyzerPlugin() : []
-    ].flat())
-  ],
+    ])
+  ]),
 
   devtool: dev && 'source-map',
   devServer: {
