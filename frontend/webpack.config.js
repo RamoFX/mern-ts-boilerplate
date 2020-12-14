@@ -40,7 +40,7 @@ const script_ext = `${ script }${ framework == 'react' && 'x' }`
 const entryFile_name = `index.${ script_ext }`
 
 const scriptModule = () => {
-  const test = new RegExp(`/\.${ script }${ framework == 'react' && 'x?' }$/`)
+  const test = new RegExp(`\.${ script }${ framework == 'react' && 'x?' }$`)
 
   return module_obj(test, [
     {
@@ -63,14 +63,16 @@ const styleModule = () => {
   const css_regexp = /\.css$/
   const sass_regexp = /\.s[ac]ss$/
 
-  const is_sass = sass_regexp.test(style)
+  const is_sass = sass_regexp.test(`.${ style }`)
 
   const test = is_sass ? sass_regexp : css_regexp
 
   return module_obj(test, [
     {
       loader: pkg.miniCssExtractPlugin.loader,
-      options: {}
+      options: {
+        hmr: dev
+      }
     },
     'css-loader',
     is_sass ? 'sass-loader' : []
