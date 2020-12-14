@@ -1,21 +1,53 @@
+// Main definitions
+const yes = true
+const no = false
+
+
+
 // Packages
 const pkg = require('gulp-load-plugins')({overridePattern: true, pattern: ['*']})
 
 
 
-// Files
-const projectConfig = require('../project.config.json')
+// Preferences
+const localConfig = {
+  analyzeBundle: no
+}
 
-
-
-// Helpers
 const mode = process.env.NODE_ENV
 const dev = mode == 'development'
 const prod = mode == 'production'
 
-const path = (...items) => [__dirname, ...(items || [])].flat().join('/')
+const projectConfig = require('../project.config.json')
+const script = projectConfig.frontend.languages.script
+const style = projectConfig.frontend.languages.style
+const framework = projectConfig.frontend.stack.framework
 
-const filename = ext => `[name]${ dev && '-[contenthash]' }.bundle.min.${ ext }`
+const script_ext = `${ script }${ framework == 'react' ? 'x' : '' }`
+
+
+
+// Helpers
+const flat = array => array.flat()
+
+const path = (...items) => {
+  items = items || []
+
+  return flat([__dirname, ...items]).join('/')
+}
+
+const filename = ext => {
+  const hash = dev ? '-[contenthash]' : ''
+  const min_ext = prod ? '.min' : ''
+
+  return `[name]${ hash }.bundle${ min_ext }.${ ext }`
+}
+
+const module_obj = (test, use, exclude = /node_modules/) => ({
+  test,
+  use: flat(use),
+  exclude
+})
 
 // ReturnIF: Return object or array if condition else return empty object or array of the same type
 const rif = (cond, obj) => {
@@ -23,24 +55,17 @@ const rif = (cond, obj) => {
   return cond ? obj : obj_empty
 }
 
-const module_obj = (test, use, exclude = /node_modules/) => ({
-  test,
-  use,
-  exclude
-})
-
-const frontendConfig = projectConfig.frontend
-
-const script = frontendConfig.languages.script
-const style = frontendConfig.languages.style
-const framework = frontendConfig.stack.framework
-
-const script_ext = `${ script }${ framework == 'react' && 'x' }`
-
 const entryFile_name = `index.${ script_ext }`
 
+const regexpWrap = (regexp_raw, includeDot = yes) => new RegExp(`${ includeDot ? '\\.' : '' }${ regexp_raw }$`)
+
 const scriptModule = () => {
-  const test = new RegExp(`\.${ script }${ framework == 'react' && 'x?' }$`)
+  const is_js = script == 'js'
+
+  const scriptExt = is_js ? script : `(${ script })|(js)`
+  const frameworkExtAdd = framework == 'react' ? 'x?' : ''
+
+  const test = regexpWrap(scriptExt + frameworkExtAdd)
 
   return module_obj(test, [
     {
@@ -56,25 +81,22 @@ const scriptModule = () => {
       }
     },
     script == 'ts' ? 'ts-loader' : []
-  ].flat())
+  ])
 }
 
 const styleModule = () => {
-  const css_regexp = /\.css$/
-  const sass_regexp = /\.s[ac]ss$/
+  const css_regexp_raw = 'css'
+  const sass_regexp_raw = 's[ac]ss'
 
-  const is_sass = sass_regexp.test(`.${ style }`)
+  const is_sass = regexpWrap(sass_regexp_raw, no).test(style)
 
-  const test = is_sass ? sass_regexp : css_regexp
+  const test = is_sass ? regexpWrap(sass_regexp_raw) : regexpWrap(css_regexp_raw)
 
   return module_obj(test, [
-    {
-      loader: pkg.miniCssExtractPlugin.loader,
-      options: {}
-    },
+    pkg.miniCssExtractPlugin.loader,
     'css-loader',
     is_sass ? 'sass-loader' : []
-  ].flat())
+  ])
 }
 
 
@@ -105,7 +127,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: [
+    extensions: flat([
       // Script
       '.js',
       ...rif(framework == 'react', ['.jsx']),
@@ -120,19 +142,19 @@ module.exports = {
 
       // Other
       '.json'
-    ].flat(),
+    ]),
     alias: {
       assets: path('assets'),
 
-      ui: path('source/app', 'ui'),
+      ui: path('source/app/ui'),
 
-      components: path('source/app/ui', 'components'),
-      pages: path('source/app/ui', 'pages'),
-      layout: path('source/app/ui', 'layout'),
-      main: path('source/app/ui', 'main'),
+      components: path('source/app/ui/components'),
+      pages: path('source/app/ui/pages'),
+      layout: path('source/app/ui/layout'),
+      main: path('source/app/ui/main'),
 
       scripts: path('source/app/scripts'),
-      helpers: path('source/app/scripts', 'helpers')
+      helpers: path('source/app/scripts/helpers')
     }
   },
 
@@ -146,8 +168,8 @@ module.exports = {
     }),
     ...rif(prod, [
       new pkg.terserWebpackPlugin(),
-      new pkg.webpackBundleAnalyzer.BundleAnalyzerPlugin()
-    ])
+      localConfig.analyzeBundle ? new pkg.webpackBundleAnalyzer.BundleAnalyzerPlugin() : []
+    ].flat())
   ],
 
   devtool: dev && 'source-map',
@@ -157,5 +179,12 @@ module.exports = {
     inline: true,
     publicPath: '/',
     historyApiFallback: true
+  },
+
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      usedExports: true
+    }
   }
 }
