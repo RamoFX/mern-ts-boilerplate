@@ -1,11 +1,11 @@
 const allowedModes = ['dev', 'prod']
 
+const mode = process.env.NODE_ENV
+const dev = mode == 'development'
+const prod = !dev
+
 if (allowedModes.includes(mode)) {
   const webpackMerge = require('webpack-merge')
-
-  const mode = process.env.NODE_ENV
-  const dev = mode == 'development'
-  const prod = !dev
 
   const configs = {
     base: require('./base.js'),
