@@ -5,7 +5,7 @@ const dev = mode == 'development'
 const prod = !dev
 
 if (allowedModes.includes(mode)) {
-  const webpackMerge = require('webpack-merge')
+  const { merge } = require('webpack-merge')
 
   const configs = {
     base: require('./base.js'),
@@ -13,7 +13,7 @@ if (allowedModes.includes(mode)) {
     prod: require('./env/prod.js')
   }
 
-  module.exports = webpackMerge(configs.base, configs[mode])
+  module.exports = merge(configs.base, configs[mode])
 } else {
   console.error('Unsupported webpack enviroment mode.')
   console.error(`process.env.NODE_ENV == ${ process.env.NODE_ENV }`)
