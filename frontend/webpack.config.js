@@ -70,9 +70,7 @@ const styleModule = () => {
   return module_obj(test, [
     {
       loader: pkg.miniCssExtractPlugin.loader,
-      options: {
-        hmr: dev
-      }
+      options: {}
     },
     'css-loader',
     is_sass ? 'sass-loader' : []
