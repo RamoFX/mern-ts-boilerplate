@@ -49,7 +49,6 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new miniCssExtractPlugin({
       filename: '[name].bundle.css'
     }),
