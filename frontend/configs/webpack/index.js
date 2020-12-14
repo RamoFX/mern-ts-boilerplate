@@ -9,8 +9,8 @@ if (allowedModes.includes(mode)) {
 
   const configs = {
     base: require('./base.js'),
-    dev: require('./env/dev.js'),
-    prod: require('./env/prod.js')
+    development: require('./env/dev.js'),
+    production: require('./env/prod.js')
   }
 
   module.exports = merge(configs.base, configs[mode])
