@@ -13,7 +13,7 @@ if (allowedModes.includes(mode)) {
     prod: require('./env/prod.js')
   }
 
-  module.exports = webpackMerge(base, config[mode])
+  module.exports = webpackMerge(configs.base, config[mode])
 } else {
   console.error('Unsupported webpack enviroment mode.')
   console.error(`process.env.NODE_ENV == ${ process.env.NODE_ENV }`)
