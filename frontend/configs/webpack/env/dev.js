@@ -5,7 +5,7 @@ module.exports = {
   },
   cache: true,
   devtool: 'source-map',
-  devserver: {
+  devServer: {
     port: 8080,
     hot: true,
     inline: true,

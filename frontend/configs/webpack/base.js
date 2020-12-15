@@ -7,10 +7,9 @@ const { path } = require('./helpers.js')
 module.exports = {
   entry: path('source/app/index.tsx'),
   output: {
-    output: path('production/'),
-    filename: '[name].bundle.js'
+    path: path('production/')
   },
-  modules: {
+  module: {
     rules: [
       {
         test: /\.tsx?$/,
@@ -27,7 +26,12 @@ module.exports = {
               ]
             }
           },
-          'ts-loader'
+          {
+            loader: 'ts-loader',
+            options: {
+              configFile: path('configs/typescript/tsconfig.json')
+            }
+          }
         ],
         exclude: /node_modules/
       },
@@ -58,9 +62,9 @@ module.exports = {
   ],
   resolve: {
     extensions: [
+      '.wasm', '.ts', '.tsx', '.mjs', '.cjs', '.js',
       '.ts', '.tsx',
-      '.css', 'scss',
-      '.json'
+      '.css', '.scss'
     ],
     alias: {
       assets: path('assets'),

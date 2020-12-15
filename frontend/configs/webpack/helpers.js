@@ -1,7 +1,9 @@
 const node_path = require('path')
 
-module.exports = {
+const helpers = {
   path: (...paths) => {
-    return node_path.join(__dirname, '..', '..', ...paths)
+    return node_path.join(__dirname, '..', '..', ...(paths || []))
   }
 }
+
+module.exports = helpers
