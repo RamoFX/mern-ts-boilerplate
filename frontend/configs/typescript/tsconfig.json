@@ -33,7 +33,7 @@
     }
   },
   "include": [
-    "source"
+    "../../source"
   ],
   "types": [
     "source/app/types/**/*.d.ts"
