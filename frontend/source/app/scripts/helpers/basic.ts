@@ -1,3 +1,7 @@
-export const isArray = (object: any): boolean => {
+const isArray = (object: any): boolean => {
   return Array.isArray(object)
 }
+
+
+
+export default isArray
