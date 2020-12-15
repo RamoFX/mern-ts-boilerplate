@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import './index.scss/'
+import './index.scss'
 
 import Root from 'main/Root'
 
-import { $ } from 'helpers/dom'
+import $ from 'helpers/dom'
 
 
 
