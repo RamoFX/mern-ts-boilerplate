@@ -36,6 +36,6 @@
     "../../source"
   ],
   "types": [
-    "source/app/types/**/*.d.ts"
+    "../../source/app/types/**/*.d.ts"
   ]
 }
