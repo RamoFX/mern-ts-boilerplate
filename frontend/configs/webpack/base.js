@@ -40,7 +40,7 @@ module.exports = {
         use: [
           miniCssExtractPlugin.loader,
           'css-loader',
-          'sass-laoder'
+          'sass-loader'
         ],
         exclude: /node_modules/
       },
