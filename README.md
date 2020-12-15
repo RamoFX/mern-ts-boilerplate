@@ -35,7 +35,7 @@ Install dependencies: `npm install`
 ## Scripts
 Develop frontend: `npm run front:dev`
 
-Build frontend: `npm run front:build`
+Build frontend for production: `npm run front:prod`
 
 Start backend: `npm run back:start`
 
@@ -43,6 +43,6 @@ Develop entire application: `npm run start`
 
 
 ### Workflow
-Create new component: `./frontend/workflow/new-component`
+Create new component: `./frontend/workflow/new-component TYPE NAME`
 
-> NOTE: `type` argument should be one of `./frontend/source/app/ui/*` directory names
+> NOTE: `TYPE` argument should be one of `./frontend/source/app/ui/*` directory names
