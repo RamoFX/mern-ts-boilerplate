@@ -29,7 +29,7 @@ module.exports = {
           {
             loader: 'ts-loader',
             options: {
-              configFile: path('configs/typescript/tsconfig.json')
+              configFile: path('tsconfig.json')
             }
           }
         ],
