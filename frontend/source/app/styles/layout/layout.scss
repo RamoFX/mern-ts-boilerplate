@@ -1,0 +1,46 @@
+@import '../helpers/variables.scss';
+
+html, body, #app, .root {
+  height: 100%;
+}
+
+.root {
+  font-size: 16px;
+  font-family: 'Ubuntu', sans-serif;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: $dark-blue;
+}
+
+.top-bar {
+  background-color: $green;
+  height: 64px;
+}
+
+.content {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  color: $text-color;
+}
+
+pre {
+  font-family: 'Fira Code', monospace;
+  font-size: .8rem;
+
+  margin: 0 .75rem;
+  padding: .4rem;
+
+  border-radius: .25rem;
+  background-color: $pre-color;
+}

@@ -2,22 +2,16 @@ import React, { FC } from 'react'
 
 import './style.scss'
 
-import MainLayout from 'layout/MainLayout'
-
-import 'helpers/basic'
-import 'helpers/dom'
 
 
-
-const Root: FC = () => {
-  const appMode = 'normal'
-
-  return (
-    <div className="root">
-      { appMode == 'normal' && <MainLayout /> }
+const Root: FC = () => (
+  <div className='root'>
+    <div className='top-bar'></div>
+    <div className='content'>
+      <span>Edit <pre>/mern-ts-boilerplate/frontend/source/app/ui/main/Root/index.tsx</pre> to see the changes!</span>
     </div>
-  )
-}
+  </div>
+)
 
 
 
