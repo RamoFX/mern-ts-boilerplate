@@ -76,7 +76,7 @@ require('./helpers').init((type, name) => {
 
   const componentAlreadyExists = exist('dir', componentsPath(type, name))
 
-  const projectConfig = require('../../project.config.json')
+  const projectConfig = require('../configs/project/project.json')
 
 
 
@@ -100,7 +100,7 @@ require('./helpers').init((type, name) => {
 
       {
         type: 'script',
-        name: `index.${ projectConfig.frontend.languages.script }${ projectConfig.frontend.stack.framework == 'react' ? 'x' : '' }`,
+        name: `index.${ projectConfig.script }${ projectConfig.framework == 'react' ? 'x' : '' }`,
         replacements: [
 
           {
@@ -113,7 +113,7 @@ require('./helpers').init((type, name) => {
           {
             type: 'simple',
             from: /__STYLE_EXTNAME__/g,
-            to: projectConfig.frontend.languages.style
+            to: projectConfig.style
           },
 
           {
@@ -133,7 +133,7 @@ require('./helpers').init((type, name) => {
 
       {
         type: 'style',
-        name: `style.${ projectConfig.frontend.languages.style }`,
+        name: `style.${ projectConfig.style }`,
         replacements: [
 
           {
@@ -151,7 +151,7 @@ require('./helpers').init((type, name) => {
     // Main
     files.forEach( file => {
       // Read preset file
-      let fileContent = read('file', presetsComponentsPath(projectConfig.frontend.stack.framework, file.type, file.name))
+      let fileContent = read('file', presetsComponentsPath(projectConfig.framework, file.type, file.name))
 
       // Make replacements
       file.replacements.forEach( fileReplacement => {
