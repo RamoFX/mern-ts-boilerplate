@@ -6,6 +6,21 @@ module.exports = {
   output: {
     filename: '[name].bundle.min.js'
   },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true
+            }
+          }
+        ]
+      }
+    ]
+  },
   plugins: [
     new webpack.optimize.AggressiveMergingPlugin(),
     new cleanWebpackPlugin.CleanWebpackPlugin()
