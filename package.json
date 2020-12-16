@@ -4,7 +4,7 @@
   "description": "This repository provides a MERN stack startup template with Typescript.",
   "scripts": {
     "front:dev": "./scripts/front:dev",
-    "front:prod": "./scripts/front:prod",
+    "front:build": "./scripts/front:build",
     "back:start": "./scripts/back:start",
     "start": "./scripts/start"
   },
