@@ -1,7 +1,7 @@
 {
-  "name": "mern-ts-startup",
+  "name": "mfrp-boilerplate",
   "version": "1.0.0",
-  "description": "This repository provides a MERN stack startup template with Typescript.",
+  "description": "This repository provides a MFRP stack boilerplate with Typescript.",
   "scripts": {
     "front:dev": "./scripts/front:dev",
     "front:build": "./scripts/front:build",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RamoFX/mern-ts-startup.git"
+    "url": "git+https://github.com/RamoFX/mfrp-boilerplate.git"
   },
   "keywords": [
     "typescript",
@@ -26,9 +26,9 @@
   "author": "Roman Dvorovoy <roman.dvorovoy123@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RamoFX/mern-ts-startup/issues"
+    "url": "https://github.com/RamoFX/mfrp-boilerplate/issues"
   },
-  "homepage": "https://github.com/RamoFX/mern-ts-startup#readme",
+  "homepage": "https://github.com/RamoFX/mfrp-boilerplate#readme",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
