@@ -57,12 +57,13 @@ module.exports = {
       filename: '[name].bundle.css'
     }),
     new htmlWebpackPlugin({
-      template: path('source/index.html')
+      template: path('source/index.html'),
+      favicon: path('assets/favicon.ico')
     })
   ],
   resolve: {
     extensions: [
-      '.wasm', '.ts', '.tsx', '.mjs', '.cjs', '.js',
+      '.js',
       '.ts', '.tsx',
       '.css', '.scss'
     ],
