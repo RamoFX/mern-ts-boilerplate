@@ -1,4 +1,4 @@
-# MERN, Typescript - STARTUP TEMPLATE
+# MFRP, TYPESCRIPT - BOILERPLATE
 This repository provides a MFRP stack boilerplate with Typescript.
 
 
