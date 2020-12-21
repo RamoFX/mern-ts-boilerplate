@@ -26,7 +26,8 @@ This repository provides a MFRP stack boilerplate with Typescript.
 ## Installation
 Clone repository: `git clone https://github.com/RamoFX/mern-ts-startup`
 
-Install dependencies: `npm install`
+Install node.js dependencies: `npm install`
+Install python dependencies: `pip install flask flask-cors`
 
 
 
