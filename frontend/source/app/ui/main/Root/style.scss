@@ -1,1 +1,10 @@
 @import '../../../styles/helpers/variables.scss';
+
+.content {
+  display: flex;
+  flex-direction: column;
+
+  span {
+    padding: .25rem 0;
+  }
+}
