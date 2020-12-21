@@ -1,7 +1,5 @@
 # MERN, Typescript - STARTUP TEMPLATE
-This repository provides a MERN stack startup template with Typescript.
-
-Using unusual logical project structure.
+This repository provides a MFRP stack boilerplate with Typescript.
 
 
 
