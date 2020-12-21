@@ -1,5 +1,6 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from flask_cors import CORS
+import json
 
 data = {
   'dummy': ['foo', 'bar']
@@ -12,7 +13,8 @@ cors = CORS(app)
 
 @app.route('/api/dummy', methods=['GET'])
 def route_api_dummy():
-  return jsonify(data['dummy'])
+  response = json.dumps(data['dummy'])
+  return response
 
 
 

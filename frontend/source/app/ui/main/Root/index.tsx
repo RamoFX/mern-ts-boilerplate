@@ -25,7 +25,7 @@ const Root: FC = () => {
       .then( response => response.json() )
       .then( data => {
         setLoading(false)
-        setData(data)
+        setData(JSON.stringify(data))
       } )
       .catch( error => {
         setLoading(false)
