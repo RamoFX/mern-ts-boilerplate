@@ -6,14 +6,13 @@ This repository provides a MFRP stack boilerplate with Typescript.
 ## Used technologies
 
 ### Stack
-- MongoDB
-- Express
+- MongoDB (future)
+- Flask
 - React
-- NodeJS
+- Python
 
 ### Script
-- Primary: Typescript
-- Secondary: Javascript
+- Typescript
 
 ### Style
 - SASS
@@ -24,7 +23,7 @@ This repository provides a MFRP stack boilerplate with Typescript.
 
 
 ## Installation
-Clone repository: `git clone https://github.com/RamoFX/mern-ts-startup`
+Clone repository: `git clone https://github.com/RamoFX/mfrp-boilerplate`
 
 Install node.js dependencies: `npm install`
 
