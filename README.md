@@ -41,7 +41,7 @@ Start backend: `npm run back:start`
 Develop entire application: `npm run start`
 
 
-### Workflow
+## Workflow
 Create new component: `./frontend/workflow/new-component TYPE NAME`
 
 > NOTE: `TYPE` argument should be one of `./frontend/source/app/ui/*` directory names
